@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tech_move/models/activity_category.dart';
 
 class AddActivityScreen extends StatelessWidget {
   const AddActivityScreen({super.key});
@@ -27,7 +28,11 @@ class ActivityForm extends StatefulWidget {
 
 class _ActivityFormState extends State<ActivityForm> {
   final _formKey = GlobalKey<FormState>();
-  String? _selectedCategory;
+  ActivityCategory? _selectedCategory;
+  final List<ActivityCategory> _categories = [
+    ActivityCategory(id: 1, name: "Comer fruta", score: 10),
+    ActivityCategory(id: 2, name: "Atividade física", score: 20),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -36,39 +41,25 @@ class _ActivityFormState extends State<ActivityForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          DropdownButtonFormField<String>(
+          DropdownButtonFormField<ActivityCategory>(
             value: _selectedCategory,
             decoration: const InputDecoration(
               labelText: 'Categoria',
             ),
-            items: ['Lanche saudável', 'Atividade física']
-                .map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
+            items: _categories.map((category) {
+              return DropdownMenuItem<ActivityCategory>(
+                value: category,
+                child: Text(category.name),
               );
             }).toList(),
-            onChanged: (String? value) {
+            onChanged: (ActivityCategory? value) {
               setState(() {
                 _selectedCategory = value;
               });
             },
             validator: (value) {
-              if (value == null || value.isEmpty) {
+              if (value == null) {
                 return 'Por favor, selecione uma categoria';
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: 16),
-          TextFormField(
-            decoration: const InputDecoration(
-              labelText: 'Score',
-            ),
-            keyboardType: TextInputType.number,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Por favor, selecione um score';
               }
               return null;
             },
