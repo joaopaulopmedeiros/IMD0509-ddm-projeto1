@@ -1,5 +1,23 @@
 import 'package:flutter/material.dart';
 
+class AddActivityScreen extends StatelessWidget {
+  const AddActivityScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Adicionar Atividade"),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+      ),
+      body: const Padding(
+        padding: EdgeInsets.all(16.0),
+        child: ActivityForm(),
+      ),
+    );
+  }
+}
+
 class ActivityForm extends StatefulWidget {
   const ActivityForm({super.key});
 
@@ -9,6 +27,7 @@ class ActivityForm extends StatefulWidget {
 
 class _ActivityFormState extends State<ActivityForm> {
   final _formKey = GlobalKey<FormState>();
+  String? _selectedCategory;
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +36,26 @@ class _ActivityFormState extends State<ActivityForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TextFormField(
+          DropdownButtonFormField<String>(
+            value: _selectedCategory,
             decoration: const InputDecoration(
-              labelText: 'Activity Name',
+              labelText: 'Categoria',
             ),
+            items: ['Lanche saudável', 'Atividade física']
+                .map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+            onChanged: (String? value) {
+              setState(() {
+                _selectedCategory = value;
+              });
+            },
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter the activity name';
+                return 'Por favor, selecione uma categoria';
               }
               return null;
             },
@@ -31,12 +63,12 @@ class _ActivityFormState extends State<ActivityForm> {
           const SizedBox(height: 16),
           TextFormField(
             decoration: const InputDecoration(
-              labelText: 'Activity Score',
+              labelText: 'Score',
             ),
             keyboardType: TextInputType.number,
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter the activity score';
+                return 'Por favor, selecione um score';
               }
               return null;
             },
@@ -49,7 +81,7 @@ class _ActivityFormState extends State<ActivityForm> {
                 Navigator.pop(context, true);
               }
             },
-            child: const Text('Submit'),
+            child: const Text('Finalizar'),
           ),
         ],
       ),
