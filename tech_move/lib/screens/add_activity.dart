@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:tech_move/components/activity_form.dart';
 
 class AddActivityScreen extends StatelessWidget {
   const AddActivityScreen({super.key});
@@ -12,11 +13,9 @@ class AddActivityScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         
       ),
-      body: Center(
-        child: TextButton(
-          onPressed: () {},
-          child: const Text('Next'),
-        ),
+      body: const Padding(
+        padding: EdgeInsets.all(16.0),
+        child: ActivityForm(),
       ),
     );
   }
