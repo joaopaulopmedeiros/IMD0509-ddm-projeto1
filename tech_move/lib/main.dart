@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tech_move/components/ranking.dart';
-import 'package:tech_move/models/User.dart';
+import 'package:tech_move/models/user.dart';
 import 'package:tech_move/models/activity.dart';
 import 'package:tech_move/screens/about.dart';
 import 'package:tech_move/screens/add_activity.dart';
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Tech Move',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Tech Move'),
@@ -35,11 +35,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  User user = User(name: 'João Paulo Medeiros', score: 0);
   @override
   Widget build(BuildContext context) {
-    final List<User> users = [
-      User(name: 'João Paulo Medeiros', score: 0),
-    ];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
@@ -74,19 +72,23 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: Ranking(users: users),
+      body: Ranking(users: [user]),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          await Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => AddActivityScreen(
-                    user: users[0],
-                    onActivityAdded: (Activity activity) {
-                      setState(() {
-                        users[0].score += activity.category.score;
-                      });
-                    })),
+              builder: (context) => AddActivityScreen(
+                user: user,
+                onActivityAdded: (Activity? newActivity) {
+                  if (newActivity != null) {
+                    setState(() {
+                      user.score += newActivity.category.score;
+                    });
+                  }
+                },
+              ),
+            ),
           );
         },
         tooltip: 'Adicionar atividade',

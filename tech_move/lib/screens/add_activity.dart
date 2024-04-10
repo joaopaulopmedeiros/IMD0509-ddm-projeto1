@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:tech_move/components/activity_form.dart';
-import 'package:tech_move/models/User.dart';
+import 'package:tech_move/models/user.dart';
 import 'package:tech_move/models/activity.dart';
 
 class AddActivityScreen extends StatelessWidget {

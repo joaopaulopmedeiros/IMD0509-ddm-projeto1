@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tech_move/models/User.dart';
+import 'package:tech_move/models/user.dart';
 
 class Ranking extends StatefulWidget {
   final List<User> users;
