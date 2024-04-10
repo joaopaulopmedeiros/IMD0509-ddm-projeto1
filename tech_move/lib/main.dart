@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Tech Move',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Tech Move'),
@@ -49,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.purple,
+                color: Colors.deepPurple,
               ),
               child: Text(
                 'Menu',
