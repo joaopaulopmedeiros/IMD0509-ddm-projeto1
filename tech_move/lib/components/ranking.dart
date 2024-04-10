@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:tech_move/models/User.dart';
 
-class Ranking extends StatelessWidget {
-  const Ranking({super.key});
+class Ranking extends StatefulWidget {
+  final List<User> users;
 
+  const Ranking(
+      {super.key,
+      required this.users});
+  @override
+  State<StatefulWidget> createState() => _RankingState();
+}
+
+class _RankingState extends State<Ranking> {
   @override
   Widget build(BuildContext context) {
-    final List<User> users = [
-      User(name: 'Alice', score: 150),
-      User(name: 'Bob', score: 200),
-      User(name: 'Charlie', score: 180),
-      User(name: 'David', score: 220),
-      User(name: 'Emma', score: 190),
-      User(name: 'Frank', score: 160),
-    ];
+    
+    var users = widget.users;
     return Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -50,5 +52,4 @@ class Ranking extends StatelessWidget {
         ),
       );
   }
-
 }
