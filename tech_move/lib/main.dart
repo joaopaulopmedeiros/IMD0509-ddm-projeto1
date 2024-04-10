@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tech_move/components/ranking.dart';
 import 'package:tech_move/models/User.dart';
 import 'package:tech_move/models/activity.dart';
+import 'package:tech_move/screens/about.dart';
 import 'package:tech_move/screens/add_activity.dart';
 
 void main() {
@@ -44,6 +45,35 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(widget.title),
       ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.purple,
+              ),
+              child: Text(
+                'Menu',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              title: const Text('About'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AboutPage()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
       body: Ranking(users: users),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -51,13 +81,12 @@ class _MyHomePageState extends State<MyHomePage> {
             context,
             MaterialPageRoute(
                 builder: (context) => AddActivityScreen(
-                      user: users[0],
-                      onActivityAdded: (Activity activity) {
-                        setState(() {
-                          users[0].score += activity.category.score;
-                        });
-                      }
-                    )),
+                    user: users[0],
+                    onActivityAdded: (Activity activity) {
+                      setState(() {
+                        users[0].score += activity.category.score;
+                      });
+                    })),
           );
         },
         tooltip: 'Adicionar atividade',
