@@ -36,7 +36,7 @@ class _ActivityFormState extends State<ActivityForm> {
             items: _categories.map((category) {
               return DropdownMenuItem<ActivityCategory>(
                 value: category,
-                child: Text(category.name),
+                child: Text("${category.name} - ${category.score} pontos"),
               );
             }).toList(),
             onChanged: (ActivityCategory? value) {
