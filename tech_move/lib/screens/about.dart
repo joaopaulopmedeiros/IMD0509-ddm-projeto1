@@ -6,16 +6,12 @@ class AboutPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sobre'),
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'Sobre',
-              style: TextStyle(fontSize: 24.0),
-            ),
-            SizedBox(height: 20.0),
             Text(
               'O Tech Move vai além da zona de conforto!',
               textAlign: TextAlign.center,
