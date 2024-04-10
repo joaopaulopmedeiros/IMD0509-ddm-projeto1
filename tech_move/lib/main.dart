@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         setState(() {
                           users[0].score += activity.category.score;
                         });
-                      },
+                      }
                     )),
           );
         },

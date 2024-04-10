@@ -5,7 +5,10 @@ import 'package:tech_move/models/User.dart';
 import 'package:tech_move/models/activity.dart';
 
 class AddActivityScreen extends StatelessWidget {
-  const AddActivityScreen({super.key, required User user, required Null Function(Activity activity) onActivityAdded});
+  final User user;
+  final Function(Activity) onActivityAdded;
+
+  const AddActivityScreen({super.key, required this.user, required this.onActivityAdded});
 
   @override
   Widget build(BuildContext context) {
@@ -13,13 +16,14 @@ class AddActivityScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Adicionar Atividade"),
         backgroundColor: Theme.of(context).colorScheme.primary,
-        
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(16.0),
-        child: ActivityForm(),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ActivityForm(
+          onActivityAdded: onActivityAdded,
+          user: user
+        ),
       ),
     );
   }
-
 }

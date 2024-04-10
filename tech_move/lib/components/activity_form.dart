@@ -1,29 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:tech_move/models/User.dart';
+import 'package:tech_move/models/activity.dart';
 import 'package:tech_move/models/activity_category.dart';
 
-class AddActivityScreen extends StatelessWidget {
-  const AddActivityScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Adicionar Atividade"),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-      ),
-      body: const Padding(
-        padding: EdgeInsets.all(16.0),
-        child: ActivityForm(),
-      ),
-    );
-  }
-}
-
 class ActivityForm extends StatefulWidget {
-  const ActivityForm({super.key});
+  final Function(Activity) onActivityAdded;
+  final User user;
+
+  const ActivityForm({super.key, required this.onActivityAdded, required this.user});
 
   @override
-  _ActivityFormState createState() => _ActivityFormState();
+  State<ActivityForm> createState() => _ActivityFormState();
 }
 
 class _ActivityFormState extends State<ActivityForm> {
@@ -68,8 +55,9 @@ class _ActivityFormState extends State<ActivityForm> {
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                // If the form is valid, redirect to the home screen
-                Navigator.pop(context, true);
+                final newActivity = Activity(category: _selectedCategory!, publishedAt: DateTime.now());
+                widget.onActivityAdded(newActivity);
+                Navigator.pop(context);
               }
             },
             child: const Text('Finalizar'),
@@ -79,3 +67,4 @@ class _ActivityFormState extends State<ActivityForm> {
     );
   }
 }
+
